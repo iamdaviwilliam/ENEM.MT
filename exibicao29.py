@@ -9,10 +9,9 @@ palette = sns.color_palette("Set2")
 
 @st.cache_data
 def carregar_dados(ano):
-    arquivo = f"MICRODADOS_ENEM_{ano}.csv"
-    df = pd.read_csv(arquivo, sep=';', encoding='ISO-8859-1', usecols=['SG_UF_ESC', 'TP_COR_RACA', 'NU_NOTA_MT', 'TP_FAIXA_ETARIA',
-                                                                       'TP_ENSINO', 'TP_PRESENCA_MT'  ] )
-    st.write(df.shape)
+    arquivo = f"DADO_{ano}.csv" 
+
+    df = pd.read_csv(arquivo, encoding='ISO-8859-1').drop("Unnamed: 0", axis=1)
     return df
 
 def tratar_dados(df):
@@ -36,7 +35,7 @@ st.markdown("Análise detalhada das médias de Matemática por estado, raça, ti
 ano_selecionado = st.sidebar.selectbox("Selecione o Ano", [2018, 2019, 2020, 2021, 2022, 2023])
 
 df_ano = carregar_dados(ano_selecionado)
-df_ano = tratar_dados(df_ano)
+#df_ano = tratar_dados(df_ano)
 
 analise = st.sidebar.radio("Escolha a Análise", ("Média Nacional", "Média por Estado", "Média por Raça", "Média por Tipo de Escola"))
 
